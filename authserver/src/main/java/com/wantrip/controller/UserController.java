@@ -3,13 +3,10 @@ package com.wantrip.controller;
 import com.wantrip.domain.User;
 import com.wantrip.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
 import java.security.Principal;
 
 @RestController
@@ -24,9 +21,14 @@ public class UserController {
 		return principal;
 	}
 
-	@PreAuthorize("#oauth2.hasScope('server')")
-	@RequestMapping(method = RequestMethod.POST)
-	public void createUser(@Valid @RequestBody User user) {
+
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	public void createUser() {
+		User user = new User();
+
+		user.setUsername("test");
+
+		user.setPassword("111111");
 		userService.create(user);
 	}
 }
