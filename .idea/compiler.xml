@@ -7,10 +7,14 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="authserver" />
+        <module name="gateway" />
+        <module name="registry" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="authserver" target="1.8" />
+      <module name="gateway" target="1.8" />
+      <module name="registry" target="1.8" />
       <module name="UserService" target="1.5" />
       <module name="wantrip" target="1.5" />
     </bytecodeTargetLevel>
