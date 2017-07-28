@@ -10,6 +10,7 @@
     <module>authserver</module>
       <module>registry</module>
       <module>gateway</module>
+      <module>config</module>
   </modules>
   <name>wantrip Maven Webapp</name>
   <url>http://maven.apache.org</url>

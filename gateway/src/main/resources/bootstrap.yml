@@ -1,3 +1,7 @@
 spring:
   application:
     name: gateway
+  cloud:
+    config:
+      discovery:
+        serviceId: config
