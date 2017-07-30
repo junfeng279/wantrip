@@ -1,0 +1,59 @@
+version: '2.1'
+services:
+
+  config:
+    environment:
+      CONFIG_SERVICE_PASSWORD: 888888
+    image: wantrip/config
+    restart: always
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+  registry:
+    environment:
+      CONFIG_SERVICE_PASSWORD: 888888
+    image: wantrip/registry
+    restart: always
+    depends_on:
+      config:
+        condition: service_healthy
+    ports:
+      - 8761:8761
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+  gateway:
+    environment:
+      CONFIG_SERVICE_PASSWORD: 888888
+    image: wantrip/gateway
+    restart: always
+    depends_on:
+      config:
+        condition: service_healthy
+    ports:
+      - 80:4000
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+  authservice:
+    environment:
+      CONFIG_SERVICE_PASSWORD: 888888
+      NOTIFICATION_SERVICE_PASSWORD: 888888
+      STATISTICS_SERVICE_PASSWORD: 888888
+      ACCOUNT_SERVICE_PASSWORD: 888888
+      MONGODB_PASSWORD: 888888
+    image: wantrip/authservice
+    restart: always
+    depends_on:
+      config:
+        condition: service_healthy
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"

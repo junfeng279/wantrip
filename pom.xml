@@ -7,12 +7,11 @@
   <version>1.0-SNAPSHOT</version>
   <modules>
     <module>authserver</module>
-    <module>authserver</module>
-      <module>registry</module>
-      <module>gateway</module>
-      <module>config</module>
+    <module>registry</module>
+    <module>gateway</module>
+    <module>config</module>
   </modules>
-  <name>wantrip Maven Webapp</name>
+  <name>wantrip</name>
   <url>http://maven.apache.org</url>
   <dependencies>
     <dependency>
