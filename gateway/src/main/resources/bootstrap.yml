@@ -1,7 +1,11 @@
 spring:
   application:
     name: gateway
+#  cloud:
+#    config:
+#      discovery:
+#        serviceId: config
   cloud:
     config:
-      discovery:
-        serviceId: config
+      uri: http://config:8888
+      fail-fast: true
