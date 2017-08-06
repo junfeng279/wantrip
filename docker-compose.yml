@@ -44,10 +44,6 @@ services:
 
   authserver:
     environment:
-      CONFIG_SERVICE_PASSWORD: 888888
-      NOTIFICATION_SERVICE_PASSWORD: 888888
-      STATISTICS_SERVICE_PASSWORD: 888888
-      ACCOUNT_SERVICE_PASSWORD: 888888
       MONGODB_PASSWORD: 888888
     image: wantrip/authserver
     restart: always
@@ -56,6 +52,20 @@ services:
 #        condition: service_healthy
       - config
       - registry
+      - auth-mongodb
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+  auth-mongodb:
+    environment:
+      INIT_DUMP: account-service-dump.js
+      MONGODB_PASSWORD: 888888
+    image: wantrip/auth-mongodb
+    restart: always
+    ports:
+      - 27017:27017
     logging:
       options:
         max-size: "10m"

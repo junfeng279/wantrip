@@ -1,10 +1,13 @@
 spring:
   data:
     mongodb:
-      username: root
-      password: root
+      host: auth-mongodb
+      username: user
+      password: 888888
       database: wantrip
       port: 27017
+      repositories:
+        enabled: true
 
 server:
   port: 8081
