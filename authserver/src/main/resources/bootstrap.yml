@@ -1,19 +1,26 @@
 spring:
   application:
     name: authserver
+  cloud:
+    config:
+      uri: http://config:8888
+      fail-fast: true
+      password: ${CONFIG_SERVICE_PASSWORD}
+      username: user
+  http:
+      encoding.charset: UTF-8
+      encoding.enable: true
+      encoding.force: true
   data:
     mongodb:
       host: auth-mongodb
-      username: user
-      password: 888888
-      database: wantrip
       port: 27017
+      username: user
+      password: ${MONGODB_PASSWORD}
+      database: piggymetrics
       repositories:
         enabled: true
-#  cloud:
-#    config:
-#      discovery:
-#        serviceId: config
+
 eureka:
   instance:
     prefer-ip-address: true
@@ -21,5 +28,3 @@ eureka:
     serviceUrl:
       defaultZone: http://registry:8761/eureka/
 
-server:
-  port: 8081

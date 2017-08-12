@@ -62,7 +62,7 @@ services:
     environment:
       INIT_DUMP: account-service-dump.js
       MONGODB_PASSWORD: 888888
-    image: wantrip/auth-mongodb
+    image: wantrip/mongodb
     restart: always
     ports:
       - 27017:27017

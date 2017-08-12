@@ -14,9 +14,9 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="authserver" target="1.8" />
-      <module name="config" target="1.8" />
-      <module name="gateway" target="1.8" />
-      <module name="registry" target="1.8" />
+      <module name="config" target="1.5" />
+      <module name="gateway" target="1.5" />
+      <module name="registry" target="1.5" />
       <module name="UserService" target="1.5" />
       <module name="wantrip" target="1.5" />
     </bytecodeTargetLevel>

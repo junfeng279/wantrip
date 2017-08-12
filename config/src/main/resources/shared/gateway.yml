@@ -1,3 +1,10 @@
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    serviceUrl:
+      defaultZone: http://registry:8761/eureka/
+
 hystrix:
   command:
     default:
@@ -18,7 +25,7 @@ zuul:
   routes:
     users:
       path: /uaa/**
-      serviceId: authservice
+      serviceId: authserver
 
 server:
   port: 4000
