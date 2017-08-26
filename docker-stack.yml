@@ -1,0 +1,99 @@
+version: '3'
+services:
+  discovery:
+    image: reg.domain.com:5000/testuser/registry:1.3.6.RELEASE
+    ports:
+      - 8761:8761
+    networks:
+      springcloud-overlay:
+        aliases:
+          - eureka
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+
+  config:
+    image: reg.domain.com:5000/testuser/config:1.3.6.RELEASE
+    ports:
+      - 8888:8888
+    networks:
+      - springcloud-overlay
+    environment:
+      - EUREKA_SERVER_ADDRESS=eureka
+    depends_on:
+      - discovery
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+
+  auth-mongodb:
+    image: wantrip/mongodb
+    ports:
+      - 27017:27017
+    networks:
+      - springcloud-overlay
+    environment:
+      - EUREKA_SERVER_ADDRESS=eureka
+      - INIT_DUMP=account-service-dump.js
+      - MONGODB_PASSWORD=888888
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+
+  authserver:
+    image: reg.domain.com:5000/testuser/authserver:1.3.6.RELEASE
+    ports:
+      - 8081:8081
+    networks:
+      - springcloud-overlay
+    environment:
+      - EUREKA_SERVER_ADDRESS=eureka
+      - MONGODB_PASSWORD=888888
+    depends_on:
+      - discovery
+      - config
+      - auth-mongodb
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+
+  gateway:
+    image: reg.domain.com:5000/testuser/gateway:1.3.6.RELEASE
+    ports:
+      - 80:4000
+    networks:
+      - springcloud-overlay
+    environment:
+      - EUREKA_SERVER_ADDRESS=eureka
+    depends_on:
+      - discovery
+      - config
+      - authserver
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+
+networks:
+  springcloud-overlay:
+    external:
+      name: springcloud-overlay

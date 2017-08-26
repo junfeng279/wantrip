@@ -3,16 +3,18 @@ spring:
     name: authserver
   cloud:
     config:
-      uri: http://config:8888
-      fail-fast: true
-      password: ${CONFIG_SERVICE_PASSWORD}
-      username: user
+      discovery:
+        serviceId: config
   http:
-      encoding.charset: UTF-8
-      encoding.enable: true
-      encoding.force: true
+    encoding.charset: UTF-8
+    encoding.enable: true
+    encoding.force: true
   data:
     mongodb:
+  #      username: root
+  #      password: root
+  #      database: wantrip
+  #      port: 27017
       host: auth-mongodb
       port: 27017
       username: user
@@ -26,7 +28,10 @@ eureka:
     prefer-ip-address: true
   client:
     serviceUrl:
-      defaultZone: http://registry:8761/eureka/
+      defaultZone: http://discovery:8761/eureka/
+
+server:
+  port: 8081
 
 
 

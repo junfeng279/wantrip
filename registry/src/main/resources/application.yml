@@ -3,12 +3,13 @@ server:
 
 eureka:
   instance:
-    prefer-ip-address: true
+    prefer-ip-address: true        # 指定该Eureka实例的主机名
   client:
+    enabled: true
+    healthcheck:
+      enabled: true
     registerWithEureka: false
     fetchRegistry: false
-    server:
-      waitTimeInMsWhenSyncEmpty: 0
-    serverUrl:
-      defaultZone: http://registry:8761/eureka/
+    serviceUrl:
+      defaultZone: http://discovery:8761/eureka/
 

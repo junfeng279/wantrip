@@ -13,6 +13,8 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
         <docker.image.prefix>wantrip</docker.image.prefix>
+        <docker.repostory>reg.domain.com:5000</docker.repostory>
+        <docker.registry.name>testuser</docker.registry.name>
     </properties>
 
     <parent>
@@ -66,18 +68,52 @@
                             <goal>build</goal>
                         </goals>
                     </execution>
+                    <execution>
+                        <id>tag-image</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>tag</goal>
+                        </goals>
+                        <configuration>
+                            <image>${docker.repostory}/${docker.registry.name}/${project.artifactId}:${project.version}</image>
+                            <newName>${docker.repostory}/${docker.registry.name}/${project.artifactId}:${project.version}</newName>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>push-image</id>
+                        <phase>deploy</phase>
+                        <goals>
+                            <goal>push</goal>
+                        </goals>
+                        <configuration>
+                            <imageName>${docker.repostory}/${docker.registry.name}/${project.artifactId}:${project.version}</imageName>
+                        </configuration>
+                    </execution>
                 </executions>
                 <configuration>
-                    <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
+                    <!-- 私有仓库配置，需要settings.xml文件配合serverId对应的服务地址 -->
+                    <serverId>docker-domain</serverId>
+                    <registryUrl>reg.domain.com</registryUrl>
+                    <!-- <forceTags>true</forceTags> -->
+                    <!--install阶段也上传，否则只有deploy阶段上传-->
+                    <pushImage>true</pushImage>
                     <dockerDirectory>${project.basedir}</dockerDirectory>
+                    <!-- <dockerHost>http://reg.domain.com:5000/</dockerHost>-->
+                    <imageName>${docker.repostory}/${docker.registry.name}/${project.artifactId}:${project.version}</imageName>
+                    <imageTags>
+                        <!--docker的tag为项目版本号、latest
+                       <imageTag>${project.version}</imageTag>-->
+                        <imageTag>latest</imageTag>
+                    </imageTags>
                     <resources>
-                        <resource>
+                        <rescource><!-- 将打包文件放入dockerDirectory指定的位置 -->
                             <targetPath>/</targetPath>
                             <directory>${project.build.directory}</directory>
                             <include>${project.build.finalName}.jar</include>
-                        </resource>
+                        </rescource>
                     </resources>
                 </configuration>
+
             </plugin>
 
         </plugins>
