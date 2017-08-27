@@ -4,6 +4,7 @@
     <file type="web" url="file://$PROJECT_DIR$/authserver" />
     <file type="web" url="file://$PROJECT_DIR$/config" />
     <file type="web" url="file://$PROJECT_DIR$/gateway" />
+    <file type="web" url="file://$PROJECT_DIR$/productManager" />
     <file type="web" url="file://$PROJECT_DIR$/registry" />
     <file type="web" url="file://$PROJECT_DIR$/UserService" />
   </component>
