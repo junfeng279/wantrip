@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: manager
+  cloud:
+    config:
+      discovery:
+        serviceId: config
+  http:
+    encoding.charset: UTF-8
+    encoding.enable: true
+    encoding.force: true
+  data:
+    mongodb:
+      host: manager-mongodb
+      port: 27017
+      username: user
+      password: ${MONGODB_PASSWORD}
+      database: piggymetrics
+      repositories:
+        enabled: true
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    serviceUrl:
+      defaultZone: http://discovery:8761/eureka/
+
+server:
+  port: 8082
+
+
+
