@@ -1,17 +1,9 @@
 spring:
   application:
-    name: manager
-  cloud:
-    config:
-      discovery:
-        serviceId: config
-  http:
-    encoding.charset: UTF-8
-    encoding.enable: true
-    encoding.force: true
+    name: authserver
   data:
     mongodb:
-      host: manager-mongodb
+      host: auth-mongodb
       port: 27017
       username: user
       password: ${MONGODB_PASSWORD}
@@ -19,15 +11,14 @@ spring:
       repositories:
         enabled: true
 
+server:
+  port: 8081
+
 eureka:
   instance:
     prefer-ip-address: true
   client:
     serviceUrl:
       defaultZone: http://discovery:8761/eureka/
-
-server:
-  port: 8082
-
 
 

@@ -26,12 +26,18 @@ spring:
 eureka:
   instance:
     prefer-ip-address: true
+    leaseRenewalIntervalInSeconds: 5
+    leaseExpirationDurationInSeconds: 5
   client:
     serviceUrl:
       defaultZone: http://discovery:8761/eureka/
 
 server:
   port: 8081
+
+ribbon:
+  eureka:
+    enabled: true
 
 
 
